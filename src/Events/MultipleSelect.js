@@ -22,15 +22,6 @@ const MenuProps = {
 
 const CustomOutlinedInput = withStyles((theme) => ({
   root: {
-    '& $notchedOutline': {
-      borderColor: 'white !important', // Cambia el color del borde a blanco
-    },
-    '&:hover $notchedOutline': {
-      borderColor: 'white !important', // Cambia el color del borde al pasar el mouse
-    },
-    '&$focused $notchedOutline': {
-      borderColor: 'white !important', // Cambia el color del borde cuando está enfocado
-    },
   },
   focused: {},
   notchedOutline: {},
@@ -53,8 +44,6 @@ const MultipleSelect = ({ label, values, onMultipleChange, selected }) => {
     const {
       target: { value },
     } = event;
-    console.log("Hola")
-    console.log(value)
     onMultipleChange[1](
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
@@ -64,10 +53,9 @@ const MultipleSelect = ({ label, values, onMultipleChange, selected }) => {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 400 }}>
+      <FormControl variant="filled" sx={{ m: 1, width: 400 }}>
         <InputLabel 
           id="demo-multiple-value-label" 
-          sx={{ color: 'white !important' }} // Cambia el color del label a blanco
         >
           {label}
         </InputLabel>
@@ -75,25 +63,26 @@ const MultipleSelect = ({ label, values, onMultipleChange, selected }) => {
           labelId="demo-multiple-value-label"
           id="demo-multiple-value"
           multiple
+          required={true}
           value={onMultipleChange[0]}
           onChange={handleChange}
-          input={<CustomOutlinedInput label={label} sx={{ color: 'white !important' }} />} // Usa el componente personalizado de OutlinedInput
+          input={<CustomOutlinedInput label={label} />} // Usa el componente personalizado de OutlinedInput
           MenuProps={MenuProps}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} sx={{color:"white"}}/>
+                <Chip key={value.code} label={value.name}/>
               ))}
             </Box>
           )}
         >
           {values.map((value) => (
             <MenuItem
-              key={value}
+              key={value.code}
               value={value}
               style={getStyles(value, valueName, theme)}
             >
-              {value}
+              {value.name}
             </MenuItem>
           ))}
         </Select>

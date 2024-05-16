@@ -61,6 +61,7 @@ const EventTableBody = ({ name, location, categories }) => {
     }}>
       <Table aria-label="customized table">
         <TableBody>
+          {console.log(events)}
           {events.map(event => (
             <StyledTableRow key={event.id}>
               <StyledTableCell>
