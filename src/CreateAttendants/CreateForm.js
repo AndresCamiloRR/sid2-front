@@ -11,6 +11,7 @@ const CreateForm = () => {
     const { attendantGlobal, setAttendantGlobal } = useContext(AppContext);
 
     const initialUsername = attendantGlobal ? attendantGlobal.username : '';
+    const isEdit = Boolean(attendantGlobal);
     const initialName = attendantGlobal ? attendantGlobal.name : '';
     const initialRelation = attendantGlobal ? attendantGlobal.relation : '';
     const initialEmail = attendantGlobal ? attendantGlobal.email : '';
@@ -58,7 +59,7 @@ const CreateForm = () => {
             boxShadow: 1
         }}>
             <Grid item xs={5} textAlign="center">
-                <FormTextField onFieldChange={setUsername} label={"Cédula"} value={username} selected={[selected, setSelected]} width={200} />
+                <FormTextField readOnly={isEdit} onFieldChange={setUsername} label={"Cédula"} value={username} selected={[selected, setSelected]} width={200} />
             </Grid>
             <Grid item xs={5} textAlign="center">
                 <FormTextField onFieldChange={setName} label={"Nombre"} value={name} selected={[selected, setSelected]} width={200} />

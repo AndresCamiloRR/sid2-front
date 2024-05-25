@@ -2,11 +2,8 @@ import TextField from '@mui/material/TextField';
 import { withStyles } from '@mui/styles';
 import React, { useRef, useEffect } from 'react';
 
-const StyledTextField = withStyles((theme) => ({
-  
-}))(TextField);
 
-const FormTextField = ({ onFieldChange, label, value, selected, width}) => {
+const FormTextField = ({ onFieldChange, label, value, selected, width, readOnly}) => {
 
   const inputRef = useRef(null);
 
@@ -22,7 +19,7 @@ const FormTextField = ({ onFieldChange, label, value, selected, width}) => {
   };
 
   return (
-    <StyledTextField
+    <TextField
       inputRef={inputRef}
       label={label}
       value={value}
@@ -31,6 +28,10 @@ const FormTextField = ({ onFieldChange, label, value, selected, width}) => {
       multiline
       onChange={handleChange}
       sx={{width:width}}
+      inputProps={{
+        readOnly: readOnly,
+        disabled: readOnly,
+      }}
     />
   );
 };

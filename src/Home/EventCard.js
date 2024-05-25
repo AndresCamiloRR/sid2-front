@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { RemoveRedEye as RemoveRedEyeIcon, Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { AppContext } from '../App';
 import EventService from '../Services/EventService';
+import { useNavigate } from 'react-router-dom';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,10 +16,14 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 const EventCard = ({ event }) => {
   const { setEventGlobal, setReload } = useContext(AppContext);
+  const navigate = useNavigate()
+
 
   const handleEditClick = () => {
     setEventGlobal(event);
     console.log(event);
+    navigate('/Event/Edit')
+    
   };
 
   const handleDeleteClick = () => {

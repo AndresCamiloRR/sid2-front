@@ -19,6 +19,7 @@ const CreateForm = () => {
 
   // Inicialización de valores
   const initialName = eventGlobal ? eventGlobal.title : '';
+  const isEdit = Boolean(eventGlobal)
   const initialDescription = eventGlobal ? eventGlobal.description : '';
   const initialCategories = eventGlobal ? eventGlobal.categories : [];
   const initialDate = eventGlobal ? dayjs(eventGlobal.date) : dayjs('2022-04-17');
@@ -89,7 +90,7 @@ const CreateForm = () => {
       boxShadow: 1
     }}>
       <Grid item xs={5} textAlign="center">
-        <FormTextField onFieldChange={setName} label="Nombre" value={name} selected={[selected, setSelected]} width={200} />
+        <FormTextField onFieldChange={setName} readOnly={isEdit} label="Nombre" value={name} selected={[selected, setSelected]} width={200} />
       </Grid>
       <Grid item xs={5} textAlign="center">
         <MultipleFreeSolo values={allCategories} onMultipleChange={[categories, setCategories]} width={400} label="Categorías *" selected={[selected, setSelected]} />
