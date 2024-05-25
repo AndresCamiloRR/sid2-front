@@ -1,115 +1,143 @@
-import { Button, Grid } from "@mui/material"
-import FormTextField from "./FormTextField"
-import { useState, useEffect } from 'react';
-import MultipleFreeSolo from "./MultipleFreeSolo";
-import EventService from "../Services/EventService";
-import FacultyService from "../Services/FacultyService";
+import React, { useState, useEffect, useContext } from 'react';
+import { Button, Grid } from '@mui/material';
+import FormTextField from './FormTextField';
+import MultipleFreeSolo from './MultipleFreeSolo';
+import EventService from '../Services/EventService';
+import FacultyService from '../Services/FacultyService';
+import ProgramService from '../Services/ProgramService';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import MultipleSelect from './MultipleSelect';
+import { AppContext } from '../App';
+import { redirect } from 'react-router-dom';
 import dayjs from 'dayjs';
-import MultipleSelect from "./MultipleSelect";
-
 
 const CreateForm = () => {
+  const { eventGlobal, setEventGlobal } = useContext(AppContext);
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [date, setDate] = useState(dayjs('2022-04-17'));
-    const [faculties, setFaculties] = useState([]);
-    const [allFaculties, setAllFaculties] = useState([[]]);
-    const [locationName, setLocationName] = useState("");
-    const [locationAddress, setLocationAddress] = useState("");
-    const [cityName, setCityName] = useState([]);
-    const [cityState, setCityState] = useState([]);
-    const [cityCountry, setCityCountry] = useState([]);
-    const [selected, setSelected] = useState("")
+  // Inicialización de valores
+  const initialName = eventGlobal ? eventGlobal.title : '';
+  const initialDescription = eventGlobal ? eventGlobal.description : '';
+  const initialCategories = eventGlobal ? eventGlobal.categories : [];
+  const initialDate = eventGlobal ? dayjs(eventGlobal.date) : dayjs('2022-04-17');
+  const initialFaculties = eventGlobal ? eventGlobal.faculties : [];
+  const initialPrograms = eventGlobal ? eventGlobal.programs : [];
+  const initialLocationName = eventGlobal ? eventGlobal.location.name : '';
+  const initialLocationAddress = eventGlobal ? eventGlobal.location.address : '';
+  const initialCityName = eventGlobal ? eventGlobal.location.city.name : '';
+  const initialCityState = eventGlobal ? eventGlobal.location.city.state : '';
+  const initialCityCountry = eventGlobal ? eventGlobal.location.city.country : '';
 
-    const [allCategories, setAllCategories] = useState([]);
+  // Definición de estados usando useState
+  const [name, setName] = useState(initialName);
+  const [description, setDescription] = useState(initialDescription);
+  const [categories, setCategories] = useState(initialCategories);
+  const [date, setDate] = useState(initialDate);
+  const [faculties, setFaculties] = useState(initialFaculties);
+  const [programs, setPrograms] = useState(initialPrograms);
+  const [locationName, setLocationName] = useState(initialLocationName);
+  const [locationAddress, setLocationAddress] = useState(initialLocationAddress);
+  const [cityName, setCityName] = useState(initialCityName);
+  const [cityState, setCityState] = useState(initialCityState);
+  const [cityCountry, setCityCountry] = useState(initialCityCountry);
+  const [selected, setSelected] = useState('');
+  const [allFaculties, setAllFaculties] = useState([]);
+  const [allPrograms, setAllPrograms] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
 
-    useEffect(() => {
-        EventService.getCategories()
-            .then(response => {
-                setAllCategories(response);
-              
-            })
-            .catch(error => {
-              console.error("Error al obtener eventos:", error);
-            });
-        
-        FacultyService.getFaculties()
-            .then(response => {
-                setAllFaculties(response);
-            
-            })
-            .catch(error => {
-            console.error("Error al obtener eventos:", error);
-            });
-      }, []);
+  useEffect(() => {
+    EventService.getCategories()
+      .then(response => {
+        setAllCategories(response);
+      })
+      .catch(error => {
+        console.error("Error al obtener eventos:", error);
+      });
 
+    FacultyService.getFaculties()
+      .then(response => {
+        setAllFaculties(response);
+      })
+      .catch(error => {
+        console.error("Error al obtener eventos:", error);
+      });
 
-    return(
-        <Grid spacing={3} container alignItems="center" sx={{
-            height: '80vh',
-            zIndex: 1,
-            width: 1000,
-            backgroundColor: "white",
-            borderRadius: 1,
-            boxShadow: 1
-        }}>
-            <Grid item xs={5} textAlign={"center"}>
-                <FormTextField onFieldChange={setName} label={"Nombre"} value={name} selected={[selected, setSelected]} width={200}></FormTextField>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <MultipleFreeSolo values={allCategories} width={400} label={"Categorías *"}/>
-            </Grid>
-            <Grid item xs={5}>
-                <div style={{ textAlign: "center" }}>
-                    <div style={{ display: "inline-block" }}> {/* Nuevo contenedor */}
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DemoContainer components={['DatePicker', 'DatePicker']}>
-                                <DatePicker
-                                    label="Fecha"
-                                    value={date}
-                                    onChange={(newValue) => setDate(newValue)}
-                                />
-                            </DemoContainer>
-                        </LocalizationProvider>
-                    </div>
-                </div>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <FormTextField onFieldChange={setDescription} label={"Descripción"} value={description} selected={[selected, setSelected]} width={400}></FormTextField>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <FormTextField onFieldChange={setLocationName} label={"Lugar"} value={locationName} selected={[selected, setSelected]} width={200}></FormTextField>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <FormTextField onFieldChange={setLocationAddress} label={"Dirección"} value={locationAddress} selected={[selected, setSelected]} width={400}></FormTextField>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <FormTextField onFieldChange={setCityName} label={"Ciudad"} value={cityName} selected={[selected, setSelected]} width={200}></FormTextField>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <MultipleSelect label={"Facultades"} values={allFaculties} onMultipleChange={[faculties, setFaculties]} selected={[selected, setSelected]}></MultipleSelect>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <FormTextField onFieldChange={setCityState} label={"Departamento"} value={cityState} selected={[selected, setSelected]} width={200}></FormTextField>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <MultipleSelect label={"Facultades"} values={allFaculties} onMultipleChange={[faculties, setFaculties]} selected={[selected, setSelected]}></MultipleSelect>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <FormTextField onFieldChange={setCityCountry} label={"País"} value={cityCountry} selected={[selected, setSelected]} width={200}></FormTextField>
-            </Grid>
-            <Grid item xs={5} textAlign={"center"}>
-                <Button>Registrar Evento</Button>
-            </Grid>
-            
-        </Grid>
-    )
+    ProgramService.getPrograms()
+      .then(response => {
+        setAllPrograms(response);
+      })
+      .catch(error => {
+        console.error("Error al obtener eventos:", error);
+      });
+  }, []);
+
+  const handleCreateEvent = () => {
+    EventService.createEvent(name, categories, date, description, locationName, locationAddress, cityName, cityState, cityCountry, faculties, programs)
+    setEventGlobal(null)
+    redirect("/Home")
+  }
+
+  return (
+    <Grid container alignItems="center" spacing={3} sx={{
+      height: '80vh',
+      zIndex: 1,
+      width: 1000,
+      backgroundColor: "white",
+      borderRadius: 1,
+      boxShadow: 1
+    }}>
+      <Grid item xs={5} textAlign="center">
+        <FormTextField onFieldChange={setName} label="Nombre" value={name} selected={[selected, setSelected]} width={200} />
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <MultipleFreeSolo values={allCategories} onMultipleChange={[categories, setCategories]} width={400} label="Categorías *" selected={[selected, setSelected]} />
+      </Grid>
+      <Grid item xs={5}>
+        <div style={{ textAlign: "center" }}>
+          <div style={{ display: "inline-block" }}> {/* Nuevo contenedor */}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['DatePicker', 'DatePicker']}>
+                <DatePicker
+                  label="Fecha"
+                  value={date}
+                  onChange={(newValue) => setDate(newValue)}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+          </div>
+        </div>
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <FormTextField onFieldChange={setDescription} label="Descripción" value={description} selected={[selected, setSelected]} width={400} />
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <FormTextField onFieldChange={setLocationName} label="Lugar" value={locationName} selected={[selected, setSelected]} width={200} />
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <FormTextField onFieldChange={setLocationAddress} label="Dirección" value={locationAddress} selected={[selected, setSelected]} width={400} />
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <FormTextField onFieldChange={setCityName} label="Ciudad" value={cityName} selected={[selected, setSelected]} width={200} />
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <MultipleSelect label="Facultades" values={allFaculties} onMultipleChange={[faculties, setFaculties]} selected={[selected, setSelected]} />
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <FormTextField onFieldChange={setCityState} label="Departamento" value={cityState} selected={[selected, setSelected]} width={200} />
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <MultipleSelect label="Programas" values={allPrograms} onMultipleChange={[programs, setPrograms]} selected={[selected, setSelected]} />
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <FormTextField onFieldChange={setCityCountry} label="País" value={cityCountry} selected={[selected, setSelected]} width={200} />
+      </Grid>
+      <Grid item xs={5} textAlign="center">
+        <Button onClick={handleCreateEvent}>Guardar Evento</Button>
+      </Grid>
+    </Grid>
+  );
 }
 
-export default CreateForm
+export default CreateForm;

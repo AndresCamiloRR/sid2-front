@@ -3,29 +3,27 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 
-const MultipleFreeSolo = ({ values, label, onMultipleChange, width, selected }) => {
+const FreeSolo = ({ values, label, onChange, width, selected }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
     if (selected[0] === label) {
       inputRef.current.focus();
     }
-  }, [selected, label]);
+  }, [selected, label]); // Asegúrate de que se ejecute cuando "selected" cambie
 
   const handleChange = (event, newValue) => {
     selected[1](label);
-    onMultipleChange[1](newValue);
+    onChange[1](newValue);
   };
 
   return (
     <Stack spacing={3} sx={{ width: width }}>
       <Autocomplete
-        multiple
-        freeSolo
         id="tags-standard"
-        options={values}
-        value={onMultipleChange[0]}
-        onChange={handleChange}
+        options={values.map(value => value.title)}
+        value={onChange[0]}
+        onInputChange={handleChange}
         renderInput={(params) => (
           <TextField
             inputRef={inputRef}
@@ -37,6 +35,6 @@ const MultipleFreeSolo = ({ values, label, onMultipleChange, width, selected }) 
       />
     </Stack>
   );
-};
+}
 
-export default MultipleFreeSolo;
+export default FreeSolo;

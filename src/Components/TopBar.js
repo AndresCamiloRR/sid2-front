@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
@@ -8,24 +8,28 @@ import Divider from '@mui/material/Divider';
 
 const drawerWidth = 240;
 
-const TopBar = ({name}) => {
+const TopBar = ({ name }) => {
     return (
         <Box sx={{ display: 'flex', zIndex: 1, color: 'white' }}>
-        <CssBaseline />
-        <AppBar
-            position="fixed"
-            sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`, 
-                    backgroundColor: '#55B8A1', boxShadow:"none"}}
-        >
-            <Toolbar>
-                <Typography variant="h6" noWrap component="div">
-                    {name}
-                </Typography>
-            </Toolbar>
-            <Divider />
-        </AppBar>
+            <CssBaseline />
+            <AppBar
+                position="fixed"
+                sx={{
+                    width: `calc(100% - ${drawerWidth}px)`,
+                    ml: `${drawerWidth}px`,
+                    backgroundColor: '#55B8A1',
+                    boxShadow: "none"
+                }}
+            >
+                <Toolbar>
+                    <Typography variant="h6" noWrap component="div">
+                        {name}
+                    </Typography>
+                </Toolbar>
+                <Divider />
+            </AppBar>
         </Box>
-  );
+    );
 }
 
-export default TopBar
+export default TopBar;

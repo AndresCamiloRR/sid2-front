@@ -2,8 +2,12 @@ import { request } from '../axios_helper';
 
 class EventService {
 
-    getEventsFiltered(title, location, categories, paginationPage) {
-        return request("GET", `events/filters?title=${title}&location=${location}&categories=${categories}&page=${paginationPage}&size=10`, {})
+    deleteEvent(title){
+        return request("DELETE", `events/deleteByTitle?eventTitle=${title}`, {});
+    }
+
+    getEventsFiltered(title, location, categories) {
+        return request("GET", `events/search?title=${title}&location=${location}&categories=${categories}`, {})
             .then(response => response.data)
             .then(data => {
                 // Acceder a la propiedad 'data'
@@ -16,36 +20,8 @@ class EventService {
             });
     }
 
-    getEventsFilteredNoCategories(title, location, paginationPage) {
-        return request("GET", `events/filters2?title=${title}&location=${location}&page=${paginationPage}&size=10`, {})
-            .then(response => response.data)
-            .then(data => {
-                // Acceder a la propiedad 'data'
-                return data;
-            })
-            .catch(error => {
-                // Manejar errores aquí si es necesario
-                console.error("Error al obtener eventos:", error);
-                throw error; // Re-lanza el error para que sea manejado por el componente que consume el servicio
-            });
-    }
-
-    getEvents(paginationPage) {
-        return request("GET", `events/all?page=${paginationPage}&size=10`, {})
-            .then(response => response.data)
-            .then(data => {
-                // Acceder a la propiedad 'data'
-                return data;
-            })
-            .catch(error => {
-                // Manejar errores aquí si es necesario
-                console.error("Error al obtener eventos:", error);
-                throw error; // Re-lanza el error para que sea manejado por el componente que consume el servicio
-            });
-    }
-
-    getEventsTitleContains(paginationPage, title) {
-        return request("GET", `events/inTitle/${title}?page=${paginationPage}&size=10`, {})
+    getEventsFilteredNoCategories(title, location) {
+        return request("GET", `events/searchNoCategories?title=${title}&location=${location}`, {})
             .then(response => response.data)
             .then(data => {
                 // Acceder a la propiedad 'data'
@@ -69,6 +45,12 @@ class EventService {
                 // Manejar errores aquí si es necesario
                 throw error; // Re-lanza el error para que sea manejado por el componente que consume el servicio
             });
+    }
+
+    createEvent(name, categories, date, description, locationName, address, city, state, country, faculties, programs) {
+        return request("POST", "events/add", {title: name, description: description, categories: categories, date: date,
+             location: {name: locationName, address: address, city: {name: city, state: state, country: country}},
+            faculties: faculties, programs: programs})
     }
 }
 

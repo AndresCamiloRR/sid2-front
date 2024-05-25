@@ -3,10 +3,10 @@ import './Home.css';
 import SideBar from '../Components/SideBar';
 import TopBar from '../Components/TopBar';
 import { Stack } from '@mui/material';
-import EventTable from './EventTable';
+import AttendantTable from './AttendantTable';
 
 
-export default class Home extends React.Component {
+export default class Attendants extends React.Component {
 
 
   render(){
@@ -18,7 +18,7 @@ export default class Home extends React.Component {
               <TopBar name={"Home"}/>
               <SideBar/>
               <Stack>
-              <EventTable/>
+              <AttendantTable/>
               </Stack>
               <div className='circle-home'> </div>
           </body>

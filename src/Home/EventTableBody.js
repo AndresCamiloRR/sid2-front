@@ -1,71 +1,61 @@
+import React, { useState, useEffect, useContext } from 'react';
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { Table, TableBody, TableCell, TableContainer, TableRow, Paper } from '@mui/material';
+import { tableCellClasses } from '@mui/material/TableCell';  // Importación correcta de tableCellClasses
 import EventCard from './EventCard';
 import EventService from '../Services/EventService';
-import { useState, useEffect } from 'react';
+import { AppContext } from '../App';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: '#46ad95',
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 const EventTableBody = ({ name, location, categories }) => {
-
   const [events, setEvents] = useState([]);
+  const { reload, setReload } = useContext(AppContext);
 
   useEffect(() => {
-    if(categories.length>0){
-      EventService.getEventsFiltered(name, location, categories)
-        .then(response => {
-          setEvents(response.content);
-        })
-        .catch(error => {
-          console.error("Error al obtener eventos:", error);
-        });
-    }else{
-      EventService.getEventsFilteredNoCategories(name, location)
-        .then(response => {
-          setEvents(response.content);
-        })
-        .catch(error => {
-          console.error("Error al obtener eventos:", error);
-        });
-    }
+    setReload(false);
+    const fetchEvents = async () => {
+      try {
+        let response;
+        if (categories.length > 0) {
+          response = await EventService.getEventsFiltered(name, location, categories);
+        } else {
+          response = await EventService.getEventsFilteredNoCategories(name, location);
+        }
+        setEvents(response);
+      } catch (error) {
+        console.error("Error al obtener eventos:", error);
+      }
+    };
 
-  }, [name, location, categories]); // <-- Array vacío como segundo argumento
-
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: '#46ad95',
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    '&:last-child td, &:last-child th': {
-      border: 0,
-    },
-  }));
+    fetchEvents();
+  }, [name, location, categories, reload, setReload]);
 
   return (
-    <TableContainer component={Paper} sx={{
-      height: '60vh',
-      zIndex: 1,
-      width: 1000,
-    }}>
+    <TableContainer component={Paper} sx={{ height: '60vh', zIndex: 1, width: 1000 }}>
       <Table aria-label="customized table">
         <TableBody>
-          {console.log(events)}
-          {events.map(event => (
+          {events.map((event) => (
             <StyledTableRow key={event.id}>
               <StyledTableCell>
-                <EventCard event={event}></EventCard>
+                <EventCard event={event} />
               </StyledTableCell>
             </StyledTableRow>
           ))}
@@ -73,6 +63,6 @@ const EventTableBody = ({ name, location, categories }) => {
       </Table>
     </TableContainer>
   );
-}
+};
 
 export default EventTableBody;

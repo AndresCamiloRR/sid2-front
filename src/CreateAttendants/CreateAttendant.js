@@ -2,11 +2,10 @@ import React from 'react';
 import './Home.css';
 import SideBar from '../Components/SideBar';
 import TopBar from '../Components/TopBar';
-import { Stack } from '@mui/material';
-import EventTable from './EventTable';
+import CreateForm from './CreateForm';
 
 
-export default class Home extends React.Component {
+export default class CreateAttendant extends React.Component {
 
 
   render(){
@@ -17,9 +16,7 @@ export default class Home extends React.Component {
             <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
               <TopBar name={"Home"}/>
               <SideBar/>
-              <Stack>
-              <EventTable/>
-              </Stack>
+              <CreateForm></CreateForm>
               <div className='circle-home'> </div>
           </body>
         </html>
