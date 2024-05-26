@@ -4,6 +4,7 @@ import FormTextField from "./FormTextField";
 import FreeSolo from "./FreeSolo";
 import CommentService from "../Services/CommentService";
 import EventService from "../Services/EventService";
+import { useNavigate } from 'react-router-dom';
 
 const CreateForm = () => {
 
@@ -12,6 +13,7 @@ const CreateForm = () => {
     const [comment, setComment] = useState('');
     const [allEvents, setAllEvents] = useState([]);
     const [selected, setSelected] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         EventService.getEventsFilteredNoCategories('', '')
@@ -25,7 +27,9 @@ const CreateForm = () => {
 
     const handleCreateAttendant = () => {
         console.log("Trabajando")
+        localStorage.setItem('reload', true)
         CommentService.createComment(event, comment, user)
+        navigate('/Comments')
     }
 
     return (

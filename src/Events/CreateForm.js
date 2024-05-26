@@ -75,6 +75,7 @@ const CreateForm = () => {
   }, []);
 
   const handleCreateEvent = () => {
+    localStorage.setItem('reload', true);
     EventService.createEvent(name, categories, date, description, locationName, locationAddress, cityName, cityState, cityCountry, faculties, programs)
     setEventGlobal(null)
     redirect("/Home")

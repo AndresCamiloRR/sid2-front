@@ -44,6 +44,7 @@ const CreateForm = () => {
     const handleCreateAttendant = () => {
         console.log("Trabajando");
         console.log(relation);
+        localStorage.setItem('reload',true);
         AttendantsService.createAttendant(username, name, relation, email, cityName, cityState, cityCountry);
         setAttendantGlobal(null);
         navigate('/Attendants');
