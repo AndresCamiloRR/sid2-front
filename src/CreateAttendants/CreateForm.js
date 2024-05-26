@@ -1,20 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button, Grid } from "@mui/material";
 import FormTextField from "./FormTextField";
 import FreeSolo from "./FreeSolo";
 import { useNavigate } from "react-router-dom";
 import AttendantsService from "../Services/AttendantsService";
 import EmployeeService from '../Services/EmployeeService';
+import { AppContext } from '../App';
 
 const CreateForm = () => {
 
-    const [username, setUsername] = useState("");
-    const [name, setName] = useState("");
-    const [relation, setRelation] = useState("");
-    const [email, setEmail] = useState("");
-    const [cityName, setCityName] = useState("");
-    const [cityState, setCityState] = useState("");
-    const [cityCountry, setCityCountry] = useState("");
+    const { attendantGlobal, setAttendantGlobal } = useContext(AppContext);
+    const { reload, setReload } = useContext(AppContext);
+
+    const initialUsername = attendantGlobal ? attendantGlobal.username : '';
+    const isEdit = Boolean(attendantGlobal);
+    const initialName = attendantGlobal ? attendantGlobal.name : '';
+    const initialRelation = attendantGlobal ? attendantGlobal.relation : '';
+    const initialEmail = attendantGlobal ? attendantGlobal.email : '';
+    const initialCityName = attendantGlobal ? attendantGlobal.city.name : '';
+    const initialCityState = attendantGlobal ? attendantGlobal.city.state : '';
+    const initialCityCountry = attendantGlobal ? attendantGlobal.city.country : '';
+
+    const [username, setUsername] = useState(initialUsername);
+    const [name, setName] = useState(initialName);
+    const [relation, setRelation] = useState(initialRelation);
+    const [email, setEmail] = useState(initialEmail);
+    const [cityName, setCityName] = useState(initialCityName);
+    const [cityState, setCityState] = useState(initialCityState);
+    const [cityCountry, setCityCountry] = useState(initialCityCountry);
 
     const [selected, setSelected] = useState("");
     const [allRelations, setAllRelations] = useState([]);
@@ -32,6 +45,7 @@ const CreateForm = () => {
 
     const handleCreateAttendant = () => {
         AttendantsService.createAttendant(username, name, relation, email, cityName, cityState, cityCountry);
+        setReload(true)
         navigate('/Attendants');
     };
 
@@ -72,7 +86,7 @@ const CreateForm = () => {
             boxShadow: 1
         }}>
             <Grid item xs={5} textAlign="center">
-                <FormTextField readOnly={isEdit} onFieldChange={setUsername} label={"Cédula"} value={username} selected={[selected, setSelected]} width={200} />
+                <FormTextField readOnly={isEdit} onFieldChange={searchUsername} label={"Cédula"} value={username} selected={[selected, setSelected]} width={200} />
             </Grid>
             <Grid item xs={5} textAlign="center">
                 <FormTextField onFieldChange={setName} label={"Nombre"} value={name} selected={[selected, setSelected]} width={200} />

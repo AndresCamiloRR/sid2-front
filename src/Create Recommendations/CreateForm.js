@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Grid, colors } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import FreeSolo from "./FreeSolo";
 import EventService from "../Services/EventService";
 import MultipleAutocomplete from './MultipleAutocomplete';
@@ -21,7 +21,7 @@ const CreateForm = () => {
             .catch(error => {
                 console.error("Error al obtener eventos:", error);
             });
-        AttendantsService.getAttendantsFilteredNoRelations('','')
+        AttendantsService.getAttendantsFilteredNoRelations('', '')
             .then(response => {
                 setAllAttendants(response);
             })
@@ -32,10 +32,23 @@ const CreateForm = () => {
 
     const handleAttendantsChange = (selectedUsernames) => {
         const selectedAttendants = allAttendants.filter(attendant => 
-            selectedUsernames.includes(attendant.username)
+            selectedUsernames.includes(attendant.name)
         );
         setAttendants(selectedAttendants);
     };
+
+    const handleCreateRecommendation = async () => {
+        try {
+            EventService.addAttendants(event, attendants.map(attendant => attendant.username));
+
+            const eventSelected = await EventService.getByTitle(event);
+
+            attendants.forEach(attendant => AttendantsService.addEvents(attendant.username, eventSelected.categories));
+
+        } catch (error) {
+            console.error("Error al registrar la recomendación:", error);
+        }
+    }
 
     return (
         <Grid spacing={3} container alignItems="center" sx={{
@@ -46,10 +59,10 @@ const CreateForm = () => {
             borderRadius: 1,
             boxShadow: 1
         }}>
-            <Grid item xs={5} textAlign={"center"}  display="flex" justifyContent="center">
+            <Grid item xs={5} textAlign={"center"} display="flex" justifyContent="center">
                 <MultipleAutocomplete 
-                    values={allAttendants.map(attendant => attendant.username)} 
-                    onMultipleChange={[attendants.map(attendant => attendant.username), handleAttendantsChange]} 
+                    values={allAttendants.map(attendant => attendant.name)} 
+                    onMultipleChange={[attendants.map(attendant => attendant.name), handleAttendantsChange]} 
                     width={400} 
                     label="Asistentes *" 
                     selected={[selected, setSelected]}
@@ -65,7 +78,7 @@ const CreateForm = () => {
                 />
             </Grid>
             <Grid item xs={5} textAlign={"center"}>
-                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}} onClick={null}>Registrar Recomendación</Button>
+                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}} onClick={handleCreateRecommendation}>Registrar Recomendación</Button>
             </Grid>
         </Grid>
     );

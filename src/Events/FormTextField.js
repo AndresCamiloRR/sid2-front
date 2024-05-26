@@ -2,8 +2,29 @@ import TextField from '@mui/material/TextField';
 import { withStyles } from '@mui/styles';
 import React, { useRef, useEffect } from 'react';
 
-const FormTextField = ({ onFieldChange, label, value, selected, width, readOnly}) => {
+const StyledTextField = withStyles((theme) => ({
+  root: {
+    '& label': {
+      color: 'white',
+    },
+    '& .MuiInputBase-input': {
+      color: 'white',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'white',
+      },
+      '&:hover fieldset': {
+        borderColor: 'white',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'white',
+      },
+    },
+  },
+}))(TextField);
 
+const FormTextField = ({ onFieldChange, label, value, selected }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -18,19 +39,24 @@ const FormTextField = ({ onFieldChange, label, value, selected, width, readOnly}
   };
 
   return (
-    <TextField
+    <StyledTextField
       inputRef={inputRef}
       label={label}
       value={value}
-      required={true}
-      variant='standard'
-      multiline
-      onChange={handleChange}
-      sx={{width:width}}
-      inputProps={{
-        readOnly: readOnly,
-        disabled: readOnly,
+      InputLabelProps={{
+        style: { color: 'white' },
       }}
+      inputProps={{
+        style: { color: 'white' },
+      }}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: 'white',
+          },
+        },
+      }}
+      onChange={handleChange}
     />
   );
 };

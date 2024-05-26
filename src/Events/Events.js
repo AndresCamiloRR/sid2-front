@@ -6,7 +6,7 @@ import { Stack } from '@mui/material';
 import EventTable from './EventTable';
 
 
-export default class Home extends React.Component {
+export default class Events extends React.Component {
 
 
   render(){

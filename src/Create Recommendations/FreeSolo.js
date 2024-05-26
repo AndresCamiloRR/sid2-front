@@ -13,7 +13,6 @@ const FreeSolo = ({ values, label, onChange, width, selected }) => {
   }, [selected, label]); // Asegúrate de que se ejecute cuando "selected" cambie
 
   const handleChange = (event, newValue) => {
-    console.log(event)
     selected[1](label);
     onChange[1](newValue);
   };
@@ -22,7 +21,7 @@ const FreeSolo = ({ values, label, onChange, width, selected }) => {
     <Stack spacing={3} sx={{ width: width }}>
       <Autocomplete
         id="tags-standard"
-        options={values.map(value => value.name)}
+        options={values.map(value => value.title)}
         value={onChange[0]}
         onInputChange={handleChange}
         renderInput={(params) => (
@@ -31,7 +30,6 @@ const FreeSolo = ({ values, label, onChange, width, selected }) => {
             {...params}
             variant="standard"
             label={label}
-            sx={{color: "white"}}
           />
         )}
       />
