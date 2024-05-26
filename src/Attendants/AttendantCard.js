@@ -11,6 +11,7 @@ import { useContext } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttendantsService from '../Services/AttendantsService';
+import { useNavigate } from 'react-router-dom';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,6 +24,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const AttendantCard = ({ attendant }) => {
   const { attendantGlobal, setAttendantGlobal } = useContext(AppContext);
   const { reload, setReload } = useContext(AppContext);
+  const navigate = useNavigate()
 
   const handleClick = () => {
     setAttendantGlobal(attendant);
@@ -31,6 +33,10 @@ const AttendantCard = ({ attendant }) => {
   const handleDelete = () => {
     AttendantsService.deleteAttendant(attendant.username)
     setReload(true)
+  }
+
+  const handleViewAttendants = () =>{
+    navigate('/Attendants/View', {state: {obj: attendant}});
   }
 
   return (
@@ -67,6 +73,7 @@ const AttendantCard = ({ attendant }) => {
                       backgroundColor: '#46ad95'
                     }
                   }}
+                  onClick={handleViewAttendants}
                 >
                   <RemoveRedEyeIcon />
                 </Button>

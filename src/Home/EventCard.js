@@ -4,6 +4,8 @@ import { styled } from '@mui/material/styles';
 import { RemoveRedEye as RemoveRedEyeIcon, Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { AppContext } from '../App';
 import EventService from '../Services/EventService';
+import { useNavigate } from 'react-router-dom';
+import { red } from '@mui/material/colors';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,6 +17,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 const EventCard = ({ event }) => {
   const { setEventGlobal, setReload } = useContext(AppContext);
+  const navigate = useNavigate()
 
   const handleEditClick = () => {
     setEventGlobal(event);
@@ -37,6 +40,11 @@ const EventCard = ({ event }) => {
     year: 'numeric'
   });
 
+
+  const handleViewClick = () => {
+    navigate('/Event/View',{state: {obj: event }});
+  }
+
   return (
     <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3 }}>
       <StyledPaper sx={{ my: 1, mx: 'auto', p: 2 }}>
@@ -51,7 +59,7 @@ const EventCard = ({ event }) => {
             <Typography noWrap>{eventDate}</Typography>
           </Grid>
           <Grid item>
-            <ActionButton icon={<RemoveRedEyeIcon />} color="#46ad95" />
+            <ActionButton icon={<RemoveRedEyeIcon />} color="#46ad95" onClick={handleViewClick} />
           </Grid>
           <Grid item>
             <ActionButton icon={<EditIcon />} color="#46ad95" onClick={handleEditClick} />

@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px; 
+  background-color: #2ecc71; 
+  z-index: 1000;
+}
+
+.sidebar {
+  position: fixed;
+  top: 60px; 
+  left: 0;
+  width: 250px; 
+  height: calc(100% - 60px);
+  background-color: #1abc9c; 
+  z-index: 1000;
+}
+
+.content {
+  margin-top: 60px; 
+  margin-left: 240px; 
+  padding: 20px;
+  background-color: #badfd7; 
+  width: calc(100% - 240px);
+  height: calc(100vh - 60px);
+  overflow: auto;
+}
+
+.textCard-Attendants{
+  font-family: 'Rubik';
+
+}
+
+
+.cardCity-Attendants{
+  width: 60%;
+}
+.cardCityContent-Attendants{
+  width: 60%;
+}
+
+.cityPadding-Attendants{
+  padding-bottom: 10px;
+}
+
+
+.cityInfo-Attendants{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.tittle-Attendants{
+  font-family: 'Rubik';
+  color: #42917e;
+}
+
+
+.cardPreferences-Attendants{
+  width: 60%;
+}

@@ -7,6 +7,8 @@ import Attendants from './Attendants/Attendants';
 import CreateAttendant from './CreateAttendants/CreateAttendant';
 import CreateComment from './CreateComment/CreateComment';
 import Comments from './Comments/Comments';
+import ViewEvent from './viewEvent/ViewEvent';
+import ViewAttendants from './ViewAttendants/ViewAttendants';
 
 export const AppContext = createContext();
 
@@ -48,6 +50,9 @@ function App() {
           <Route path="/CreateAttendant" element={<CreateAttendant />} />
           <Route path="/CreateComment" element={<CreateComment />} />
           <Route path="/Comments" element={<Comments />} />
+          <Route path="/Event/View" element={<ViewEvent />} />
+          <Route path="/Attendants/View" element={<ViewAttendants />} />
+
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>
