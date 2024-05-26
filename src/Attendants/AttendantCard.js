@@ -12,6 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttendantsService from '../Services/AttendantsService';
 import { useNavigate } from 'react-router-dom';
+import EmployeeService from '../Services/EmployeeService';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -24,6 +25,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const AttendantCard = ({ attendant }) => {
   const { attendantGlobal, setAttendantGlobal } = useContext(AppContext);
   const { reload, setReload } = useContext(AppContext);
+
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -36,8 +38,12 @@ const AttendantCard = ({ attendant }) => {
     setReload(true)
   }
 
-  const handleViewAttendants = () =>{
-    navigate('/Attendants/View', {state: {obj: attendant}});
+  const handleViewAttendants = async() =>{
+
+    const response = await EmployeeService.findEmployee(attendant.username);
+
+
+    navigate('/Attendants/View', {state: {obj: attendant, employeeInfo: response }});
   }
 
   return (

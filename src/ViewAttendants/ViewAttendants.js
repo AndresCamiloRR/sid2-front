@@ -8,13 +8,14 @@ import './ViewAttendants.css';
 export function ViewAttendants() {
   const location = useLocation();
   let obj = location.state.obj;
+  let employeeInfo = location.state.employeeInfo
 
   return (
     <div className='container'>
     <TopBar name={"Ver Asistentes"} />
     <SideBar />
     <div className='content'>
-
+        
         <div className='cityInfo-Attendants'>
 
         <div style={{width: '60%', paddingLeft:'2px'}}>
@@ -63,6 +64,24 @@ export function ViewAttendants() {
                 </Typography>
                 <Typography className='textCard-Attendants' style={{ fontSize: '16px', fontFamily: 'Rubik'}}>
                   {obj.username}
+                </Typography>
+              </div>
+
+              <div className='cityPadding-Attendants'>
+                <Typography  className='textCard-Attendants' style={{ fontSize: '19px', fontWeight: 'bold',fontFamily: 'Rubik'}}>
+                  Tipo de contrato:
+                </Typography>
+                <Typography className='textCard-Attendants' style={{ fontSize: '16px', fontFamily: 'Rubik'}}>
+                  {employeeInfo.contractType}
+                </Typography>
+              </div>
+
+              <div className='cityPadding-Attendants'>
+                <Typography  className='textCard-Attendants' style={{ fontSize: '19px', fontWeight: 'bold',fontFamily: 'Rubik'}}>
+                  Facultad:
+                </Typography>
+                <Typography className='textCard-Attendants' style={{ fontSize: '16px', fontFamily: 'Rubik'}}>
+                  {employeeInfo.faculty}
                 </Typography>
               </div>
 
