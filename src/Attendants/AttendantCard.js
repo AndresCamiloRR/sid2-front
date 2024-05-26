@@ -11,6 +11,7 @@ import { useContext } from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AttendantsService from '../Services/AttendantsService';
+import { useNavigate } from 'react-router-dom';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,9 +24,11 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const AttendantCard = ({ attendant }) => {
   const { attendantGlobal, setAttendantGlobal } = useContext(AppContext);
   const { reload, setReload } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setAttendantGlobal(attendant);
+    navigate('/Attendant/Edit')
   }
 
   const handleDelete = () => {

@@ -72,7 +72,7 @@ const CreateForm = () => {
             boxShadow: 1
         }}>
             <Grid item xs={5} textAlign="center">
-                <FormTextField onFieldChange={searchUsername} label={"Cédula"} value={username} selected={[selected, setSelected]} width={200} />
+                <FormTextField readOnly={isEdit} onFieldChange={setUsername} label={"Cédula"} value={username} selected={[selected, setSelected]} width={200} />
             </Grid>
             <Grid item xs={5} textAlign="center">
                 <FormTextField onFieldChange={setName} label={"Nombre"} value={name} selected={[selected, setSelected]} width={200} />
@@ -93,7 +93,7 @@ const CreateForm = () => {
                 <FormTextField onFieldChange={setCityCountry} label={"País"} value={cityCountry} selected={[selected, setSelected]} width={200} />
             </Grid>
             <Grid item xs={5} textAlign="center">
-                <Button onClick={handleCreateAttendant}>Guardar Asistente</Button>
+                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}  onClick={handleCreateAttendant}>Guardar Asistente</Button>
             </Grid>
         </Grid>
     );
