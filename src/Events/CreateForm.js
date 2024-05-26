@@ -136,7 +136,7 @@ const CreateForm = () => {
         <FormTextField onFieldChange={setCityCountry} label="País" value={cityCountry} selected={[selected, setSelected]} width={200} />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <Button onClick={handleCreateEvent}>Guardar Evento</Button>
+        <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}  onClick={handleCreateEvent}>Guardar Evento</Button>
       </Grid>
     </Grid>
   );

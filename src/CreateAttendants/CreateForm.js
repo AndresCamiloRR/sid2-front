@@ -81,7 +81,7 @@ const CreateForm = () => {
                 <FormTextField onFieldChange={setCityCountry} label={"País"} value={cityCountry} selected={[selected, setSelected]} width={200} />
             </Grid>
             <Grid item xs={5} textAlign="center">
-                <Button onClick={handleCreateAttendant}>Guardar Asistente</Button>
+                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}  onClick={handleCreateAttendant}>Guardar Asistente</Button>
             </Grid>
         </Grid>
     );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, colors } from "@mui/material";
 import FreeSolo from "./FreeSolo";
 import EventService from "../Services/EventService";
 import MultipleAutocomplete from './MultipleAutocomplete';
@@ -39,14 +39,14 @@ const CreateForm = () => {
 
     return (
         <Grid spacing={3} container alignItems="center" sx={{
-            height: '60vh',
+            height: '30vh',
             zIndex: 1,
             width: 900,
             backgroundColor: "white",
             borderRadius: 1,
             boxShadow: 1
         }}>
-            <Grid item xs={5} textAlign={"center"}>
+            <Grid item xs={5} textAlign={"center"}  display="flex" justifyContent="center">
                 <MultipleAutocomplete 
                     values={allAttendants.map(attendant => attendant.username)} 
                     onMultipleChange={[attendants.map(attendant => attendant.username), handleAttendantsChange]} 
@@ -65,7 +65,7 @@ const CreateForm = () => {
                 />
             </Grid>
             <Grid item xs={5} textAlign={"center"}>
-                <Button onClick={null}>Registrar Recomendación</Button>
+                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}} onClick={null}>Registrar Recomendación</Button>
             </Grid>
         </Grid>
     );

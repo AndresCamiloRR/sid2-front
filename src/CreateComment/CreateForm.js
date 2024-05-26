@@ -51,7 +51,7 @@ const CreateForm = () => {
                 <FormTextField onFieldChange={setComment} label={"Comentario"} value={comment} selected={[selected, setSelected]} width={200} />
             </Grid>
             <Grid item xs={5} textAlign={"center"}>
-                <Button onClick={handleCreateAttendant}>Registrar Comentario</Button>
+                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}   onClick={handleCreateAttendant}>Registrar Comentario</Button>
             </Grid>
         </Grid>
     );
