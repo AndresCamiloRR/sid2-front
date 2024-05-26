@@ -1,4 +1,3 @@
-import React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,10 +11,23 @@ import AddIcon from '@mui/icons-material/Add';
 import EventIcon from '@mui/icons-material/Event';
 import RecommendIcon from '@mui/icons-material/Recommend';
 import CommentIcon from '@mui/icons-material/Comment';
+import AddCommentIcon from '@mui/icons-material/AddComment';
+import PersonIcon from '@mui/icons-material/Person';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import Groups3Icon from '@mui/icons-material/Groups3';
+
 
 const drawerWidth = 240;
 
 const SideBar = () => {
+
+    function createEvent(){
+        localStorage.setItem('eventGlobal', null)
+    }
+    function createAttendant(){
+        localStorage.setItem('attendantGlobal', null)
+    }
+
     return (
         <Box sx={{ display: 'flex', zIndex: 1 }}>
             <Drawer
@@ -43,7 +55,7 @@ const SideBar = () => {
                         </ListItemButton>
                     </ListItem>
                     <ListItem style={{ paddingTop: "10%" }}>
-                        <ListItemButton href='/CreateEvent'>
+                        <ListItemButton onClick={createEvent} href={"/CreateEvent"}>
                             <ListItemIcon>
                                 <AddIcon sx={{ color: "white" }} />
                             </ListItemIcon>
@@ -53,15 +65,15 @@ const SideBar = () => {
                     <ListItem style={{ paddingTop: "10%" }}>
                         <ListItemButton href='/Attendants'>
                             <ListItemIcon>
-                                <RecommendIcon sx={{ color: "white" }} />
+                                <PersonIcon sx={{ color: "white" }} />
                             </ListItemIcon>
                             <ListItemText primary={"Asistentes"} />
                         </ListItemButton>
                     </ListItem>
                     <ListItem style={{ paddingTop: "10%" }}>
-                        <ListItemButton href='/CreateAttendant'>
+                        <ListItemButton onClick={createAttendant} href='/CreateAttendant'>
                             <ListItemIcon>
-                                <RecommendIcon sx={{ color: "white" }} />
+                                <PersonAddIcon sx={{ color: "white" }} />
                             </ListItemIcon>
                             <ListItemText primary={"Crear Asistente"} />
                         </ListItemButton>
@@ -77,17 +89,25 @@ const SideBar = () => {
                     <ListItem style={{ paddingTop: "10%" }}>
                         <ListItemButton href='/CreateComment'>
                             <ListItemIcon>
-                                <CommentIcon sx={{ color: "white" }} />
+                                <AddCommentIcon sx={{ color: "white" }} />
                             </ListItemIcon>
                             <ListItemText primary={"Crear Comentario"} />
                         </ListItemButton>
                     </ListItem>
                     <ListItem style={{ paddingTop: "10%" }}>
-                        <ListItemButton>
+                        <ListItemButton href='/Recommendations'>
                             <ListItemIcon>
                                 <RecommendIcon sx={{ color: "white" }} />
                             </ListItemIcon>
                             <ListItemText primary={"Recomendaciones"} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem style={{ paddingTop: "10%" }}>
+                        <ListItemButton href='/CreateRecommendation'>
+                            <ListItemIcon>
+                                <Groups3Icon sx={{ color: "white" }} />
+                            </ListItemIcon>
+                            <ListItemText primary={"Añadir Participación"} />
                         </ListItemButton>
                     </ListItem>
                 </List>

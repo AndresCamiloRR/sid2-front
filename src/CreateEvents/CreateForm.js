@@ -19,6 +19,7 @@ const CreateForm = () => {
 
   // Inicialización de valores
   const initialName = eventGlobal ? eventGlobal.title : '';
+  const isEdit = Boolean(eventGlobal)
   const initialDescription = eventGlobal ? eventGlobal.description : '';
   const initialCategories = eventGlobal ? eventGlobal.categories : [];
   const initialDate = eventGlobal ? dayjs(eventGlobal.date) : dayjs('2022-04-17');
@@ -74,6 +75,7 @@ const CreateForm = () => {
   }, []);
 
   const handleCreateEvent = () => {
+    localStorage.setItem('reload', true);
     EventService.createEvent(name, categories, date, description, locationName, locationAddress, cityName, cityState, cityCountry, faculties, programs)
     setEventGlobal(null)
     redirect("/Home")
@@ -89,7 +91,7 @@ const CreateForm = () => {
       boxShadow: 1
     }}>
       <Grid item xs={5} textAlign="center">
-        <FormTextField onFieldChange={setName} label="Nombre" value={name} selected={[selected, setSelected]} width={200} />
+        <FormTextField onFieldChange={setName} readOnly={isEdit} label="Nombre" value={name} selected={[selected, setSelected]} width={200} />
       </Grid>
       <Grid item xs={5} textAlign="center">
         <MultipleFreeSolo values={allCategories} onMultipleChange={[categories, setCategories]} width={400} label="Categorías *" selected={[selected, setSelected]} />
@@ -134,7 +136,7 @@ const CreateForm = () => {
         <FormTextField onFieldChange={setCityCountry} label="País" value={cityCountry} selected={[selected, setSelected]} width={200} />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <Button onClick={handleCreateEvent}>Guardar Evento</Button>
+        <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}  onClick={handleCreateEvent}>Guardar Evento</Button>
       </Grid>
     </Grid>
   );

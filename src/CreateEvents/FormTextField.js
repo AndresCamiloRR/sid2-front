@@ -2,7 +2,6 @@ import TextField from '@mui/material/TextField';
 import { withStyles } from '@mui/styles';
 import React, { useRef, useEffect } from 'react';
 
-
 const FormTextField = ({ onFieldChange, label, value, selected, width, readOnly}) => {
 
   const inputRef = useRef(null);

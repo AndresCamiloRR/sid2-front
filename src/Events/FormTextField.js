@@ -3,11 +3,28 @@ import { withStyles } from '@mui/styles';
 import React, { useRef, useEffect } from 'react';
 
 const StyledTextField = withStyles((theme) => ({
-  
+  root: {
+    '& label': {
+      color: 'white',
+    },
+    '& .MuiInputBase-input': {
+      color: 'white',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'white',
+      },
+      '&:hover fieldset': {
+        borderColor: 'white',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'white',
+      },
+    },
+  },
 }))(TextField);
 
-const FormTextField = ({ onFieldChange, label, value, selected, width}) => {
-
+const FormTextField = ({ onFieldChange, label, value, selected }) => {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -26,11 +43,20 @@ const FormTextField = ({ onFieldChange, label, value, selected, width}) => {
       inputRef={inputRef}
       label={label}
       value={value}
-      required={true}
-      variant='standard'
-      multiline
+      InputLabelProps={{
+        style: { color: 'white' },
+      }}
+      inputProps={{
+        style: { color: 'white' },
+      }}
+      sx={{
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: 'white',
+          },
+        },
+      }}
       onChange={handleChange}
-      sx={{width:width}}
     />
   );
 };

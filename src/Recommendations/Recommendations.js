@@ -2,10 +2,11 @@ import React from 'react';
 import './Home.css';
 import SideBar from '../Components/SideBar';
 import TopBar from '../Components/TopBar';
-import CreateForm from './CreateForm';
+import { Stack } from '@mui/material';
+import EventTable from './EventTable';
 
 
-export default class CreateRecommendation extends React.Component {
+export default class Recommendations extends React.Component {
 
 
   render(){
@@ -14,9 +15,11 @@ export default class CreateRecommendation extends React.Component {
         <html className='home-html-body'>
           <body className='home-html-body'>
             <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
-              <TopBar name={"Crear Comentario"}/>
+              <TopBar name={"Home"}/>
               <SideBar/>
-              <CreateForm></CreateForm>
+              <Stack>
+              <EventTable/>
+              </Stack>
               <div className='circle-home'> </div>
           </body>
         </html>

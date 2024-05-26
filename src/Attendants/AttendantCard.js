@@ -28,6 +28,7 @@ const AttendantCard = ({ attendant }) => {
 
   const handleClick = () => {
     setAttendantGlobal(attendant);
+    navigate('/Attendant/Edit')
   }
 
   const handleDelete = () => {

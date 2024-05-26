@@ -19,9 +19,12 @@ const EventCard = ({ event }) => {
   const { setEventGlobal, setReload } = useContext(AppContext);
   const navigate = useNavigate()
 
+
   const handleEditClick = () => {
     setEventGlobal(event);
     console.log(event);
+    navigate('/Event/Edit')
+    
   };
 
   const handleDeleteClick = () => {

@@ -6,6 +6,16 @@ class EventService {
         return request("DELETE", `events/deleteByTitle?eventTitle=${title}`, {});
     }
 
+    getByTitle(title) {
+        return request("GET", `events/findByTitle?eventTitle=${title}`, {})
+            .then(response => response.data) // Acceso directo a response.data
+            .catch(error => {
+                console.error("Error al obtener eventos:", error);
+                throw error; // Re-lanza el error para manejo posterior
+            });
+    }
+    
+
     getEventsFiltered(title, location, categories) {
         return request("GET", `events/search?title=${title}&location=${location}&categories=${categories}`, {})
             .then(response => response.data)
@@ -51,6 +61,10 @@ class EventService {
         return request("POST", "events/add", {title: name, description: description, categories: categories, date: date,
              location: {name: locationName, address: address, city: {name: city, state: state, country: country}},
             faculties: faculties, programs: programs})
+    }
+
+    addAttendants(title, attendants){
+        return request("PUT", `events/addAttendants?title=${title}&attendants=${attendants}`, {})
     }
 }
 

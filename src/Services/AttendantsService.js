@@ -20,6 +20,20 @@ class AttendantsService {
             });
     }
 
+    getAttendantByName(name){
+        return request("GET", `attendants/findByName?name=${name}`, {})
+            .then(response => response.data)
+            .then(data => {
+                // Acceder a la propiedad 'data'
+                return data;
+            })
+            .catch(error => {
+                // Manejar errores aquí si es necesario
+                console.error("Error al obtener eventos:", error);
+                throw error; // Re-lanza el error para que sea manejado por el componente que consume el servicio
+            });
+    }
+
     getAttendantsFiltered(username, name, relations) {
         return request("GET", `attendants/search?userNamePattern=${username}&namePattern=${name}&relations=${relations}`, {})
             .then(response => response.data)
@@ -60,6 +74,10 @@ class AttendantsService {
                 console.error("Error al obtener eventos:", error);
                 throw error; // Re-lanza el error para que sea manejado por el componente que consume el servicio
             });
+    }
+
+    addEvents(attendantId , categories) {
+        return request("PUT", `attendants/addEvents?attendantId=${attendantId}&categories=${categories}`, {})
     }
 }
 
