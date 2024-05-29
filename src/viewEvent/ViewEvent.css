@@ -44,6 +44,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
 .cardInfo-Event{
@@ -73,6 +74,18 @@
 
 .cardDescription-Event{
   width: 60%;
+}
+
+.circle-home{
+  position: fixed;
+  bottom: 0;
+  right: -10vw; 
+  transform: translateY(30vh);
+  width: 520px; 
+  height: 520px; 
+  background-color: #DA5A66;
+  border-radius: 50%;
+  z-index: 0;
 }
 
 

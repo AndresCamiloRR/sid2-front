@@ -73,12 +73,12 @@ export function ViewEvent() {
     </Card>
 
     
-    <Card className='cardCategories-Event'>
+    <Card className='cardCategories-Event' style={{zIndex: '2' }}>
 
     <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
 
       <CardContent className='cardCategories-Event' >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', zIndex: '2' }}>
                 <Typography  className='textCard-Event' style={{ fontSize: '21px', fontWeight: 'bold'}}>
                   Categorías:
                 </Typography>
