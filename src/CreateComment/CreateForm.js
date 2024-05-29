@@ -33,6 +33,7 @@ const CreateForm = () => {
     }
 
     return (
+        <form onSubmit={handleCreateAttendant}>
         <Grid spacing={3} container alignItems="center" sx={{
             height: '60vh',
             zIndex: 1,
@@ -41,19 +42,26 @@ const CreateForm = () => {
             borderRadius: 1,
             boxShadow: 1
         }}>
+            
+
             <Grid item xs={5} textAlign={"center"}>
-                <FormTextField onFieldChange={setUser} label={"Usuario"} value={user} selected={[selected, setSelected]} width={200} />
+                <FormTextField onFieldChange={setUser} label={"Usuario"} value={user} selected={[selected, setSelected]} width={200} required />
             </Grid>
             <Grid item xs={5} display="flex" justifyContent="center">
-                <FreeSolo label={"Evento"} values={allEvents} onChange={[event, setEvent]} selected={[selected, setSelected]} width={300} />
+                <FreeSolo label={"Evento"} values={allEvents} onChange={[event, setEvent]} selected={[selected, setSelected]} width={300} required />
             </Grid>
             <Grid item xs={5} textAlign={"center"}>
-                <FormTextField onFieldChange={setComment} label={"Comentario"} value={comment} selected={[selected, setSelected]} width={200} />
+                <FormTextField onFieldChange={setComment} label={"Comentario"} value={comment} selected={[selected, setSelected]} width={200} required />
             </Grid>
             <Grid item xs={5} textAlign={"center"}>
-                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}   onClick={handleCreateAttendant}>Registrar Comentario</Button>
+                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}  type="submit">Registrar Comentario</Button>
             </Grid>
+
+           
+
         </Grid>
+
+        </form>
     );
 }
 

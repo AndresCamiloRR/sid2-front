@@ -10,6 +10,7 @@ const MultipleFreeSolo = ({ values, label, onMultipleChange, width, selected }) 
     if (selected[0] === label) {
       inputRef.current.focus();
     }
+
   }, [selected, label]);
 
   const handleChange = (event, newValue) => {
@@ -26,12 +27,15 @@ const MultipleFreeSolo = ({ values, label, onMultipleChange, width, selected }) 
         options={values}
         value={onMultipleChange[0]}
         onChange={handleChange}
+        
         renderInput={(params) => (
           <TextField
             inputRef={inputRef}
             {...params}
             variant="standard"
             label={label}
+            
+           
           />
         )}
       />

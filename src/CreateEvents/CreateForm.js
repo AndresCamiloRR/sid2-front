@@ -75,6 +75,13 @@ const CreateForm = () => {
   }, []);
 
   const handleCreateEvent = () => {
+
+    
+    if (categories.length === 0) {
+      alert('Por favor, selecciona al menos una categoría.');
+      return;
+    }
+
     localStorage.setItem('reload', true);
     EventService.createEvent(name, categories, date, description, locationName, locationAddress, cityName, cityState, cityCountry, faculties, programs)
     setEventGlobal(null)
@@ -82,6 +89,7 @@ const CreateForm = () => {
   }
 
   return (
+    <form onSubmit={handleCreateEvent}>
     <Grid container alignItems="center" spacing={3} sx={{
       height: '80vh',
       zIndex: 1,
@@ -91,10 +99,10 @@ const CreateForm = () => {
       boxShadow: 1
     }}>
       <Grid item xs={5} textAlign="center">
-        <FormTextField onFieldChange={setName} readOnly={isEdit} label="Nombre" value={name} selected={[selected, setSelected]} width={200} />
+        <FormTextField onFieldChange={setName} readOnly={isEdit} label="Nombre" value={name} selected={[selected, setSelected]} width={200} required />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <MultipleFreeSolo values={allCategories} onMultipleChange={[categories, setCategories]} width={400} label="Categorías *" selected={[selected, setSelected]} />
+        <MultipleFreeSolo values={allCategories} onMultipleChange={[categories, setCategories]} width={400} label="Categorías" selected={[selected, setSelected]}  />
       </Grid>
       <Grid item xs={5}>
         <div style={{ textAlign: "center" }}>
@@ -112,33 +120,36 @@ const CreateForm = () => {
         </div>
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <FormTextField onFieldChange={setDescription} label="Descripción" value={description} selected={[selected, setSelected]} width={400} />
+        <FormTextField onFieldChange={setDescription} label="Descripción" value={description} selected={[selected, setSelected]} width={400} required />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <FormTextField onFieldChange={setLocationName} label="Lugar" value={locationName} selected={[selected, setSelected]} width={200} />
+        <FormTextField onFieldChange={setLocationName} label="Lugar" value={locationName} selected={[selected, setSelected]} width={200} required />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <FormTextField onFieldChange={setLocationAddress} label="Dirección" value={locationAddress} selected={[selected, setSelected]} width={400} />
+        <FormTextField onFieldChange={setLocationAddress} label="Dirección" value={locationAddress} selected={[selected, setSelected]} width={400} required />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <FormTextField onFieldChange={setCityName} label="Ciudad" value={cityName} selected={[selected, setSelected]} width={200} />
+        <FormTextField onFieldChange={setCityName} label="Ciudad" value={cityName} selected={[selected, setSelected]} width={200} required />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <MultipleSelect label="Facultades" values={allFaculties} onMultipleChange={[faculties, setFaculties]} selected={[selected, setSelected]} />
+        <MultipleSelect label="Facultades" values={allFaculties} onMultipleChange={[faculties, setFaculties]} selected={[selected, setSelected]} required />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <FormTextField onFieldChange={setCityState} label="Departamento" value={cityState} selected={[selected, setSelected]} width={200} />
+        <FormTextField onFieldChange={setCityState} label="Departamento" value={cityState} selected={[selected, setSelected]} width={200} required />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <MultipleSelect label="Programas" values={allPrograms} onMultipleChange={[programs, setPrograms]} selected={[selected, setSelected]} />
+        <MultipleSelect label="Programas" values={allPrograms} onMultipleChange={[programs, setPrograms]} selected={[selected, setSelected]} required />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <FormTextField onFieldChange={setCityCountry} label="País" value={cityCountry} selected={[selected, setSelected]} width={200} />
+        <FormTextField onFieldChange={setCityCountry} label="País" value={cityCountry} selected={[selected, setSelected]} width={200} required />
       </Grid>
       <Grid item xs={5} textAlign="center">
-        <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}  onClick={handleCreateEvent}>Guardar Evento</Button>
+        <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}  type='submit'>Guardar Evento</Button>
       </Grid>
     </Grid>
+
+    </form>
+
   );
 }
 

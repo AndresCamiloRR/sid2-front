@@ -60,7 +60,7 @@ export function ViewEvent() {
     <Card className='cardDescription-Event'>
       <CardContent>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', zIndex: '2' }}>
           <Typography  className='textCard-Event' style={{ fontSize: '21px', fontWeight: 'bold'}}>
             Descripción:
           </Typography>
