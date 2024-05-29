@@ -66,25 +66,27 @@ export function ViewAttendants() {
                   {obj.username}
                 </Typography>
               </div>
+              {employeeInfo && (
+                <div className='cityPadding-Attendants'>
+                  <Typography  className='textCard-Attendants' style={{ fontSize: '19px', fontWeight: 'bold',fontFamily: 'Rubik'}}>
+                    Tipo de contrato:
+                  </Typography>
+                  <Typography className='textCard-Attendants' style={{ fontSize: '16px', fontFamily: 'Rubik'}}>
+                    {employeeInfo.contractType}
+                  </Typography>
+                </div>
+              )}
 
-              <div className='cityPadding-Attendants'>
-                <Typography  className='textCard-Attendants' style={{ fontSize: '19px', fontWeight: 'bold',fontFamily: 'Rubik'}}>
-                  Tipo de contrato:
-                </Typography>
-                <Typography className='textCard-Attendants' style={{ fontSize: '16px', fontFamily: 'Rubik'}}>
-                  {employeeInfo.contractType}
-                </Typography>
-              </div>
-
-              <div className='cityPadding-Attendants'>
-                <Typography  className='textCard-Attendants' style={{ fontSize: '19px', fontWeight: 'bold',fontFamily: 'Rubik'}}>
-                  Facultad:
-                </Typography>
-                <Typography className='textCard-Attendants' style={{ fontSize: '16px', fontFamily: 'Rubik'}}>
-                  {employeeInfo.faculty}
-                </Typography>
-              </div>
-
+            {employeeInfo && (
+                <div className='cityPadding-Attendants'>
+                  <Typography  className='textCard-Attendants' style={{ fontSize: '19px', fontWeight: 'bold',fontFamily: 'Rubik'}}>
+                    Facultad:
+                  </Typography>
+                  <Typography className='textCard-Attendants' style={{ fontSize: '16px', fontFamily: 'Rubik'}}>
+                    {employeeInfo.faculty}
+                  </Typography>
+                </div>
+              )}
             </CardContent>
           </Card>
 
