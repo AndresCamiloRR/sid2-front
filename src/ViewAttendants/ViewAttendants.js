@@ -22,7 +22,7 @@ export function ViewAttendants() {
           <h2 className='tittle-Attendants'>Información general</h2>
           </div>
           
-          <Card className='cardCity-Attendants'>
+          <Card className='cardCity-Attendants' style={{zIndex: '2' }}>
           <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
 
             
@@ -95,7 +95,7 @@ export function ViewAttendants() {
           <h2 className='tittle-Attendants'>Lugar de residencia</h2>
           </div>
           
-          <Card className='cardCity-Attendants'>
+          <Card className='cardCity-Attendants' style={{zIndex: '2' }}>
           <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
 
             
@@ -139,12 +139,12 @@ export function ViewAttendants() {
           <h2 className='tittle-Attendants'>Preferencias</h2>
           </div>
           
-          <Card className='cardPreferences-Attendants'>
+          <Card className='cardPreferences-Attendants' style={{zIndex: '2' }}>
           <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
 
             
 
-            <CardContent className='cardPreferencesContent-Attendants'>
+            <CardContent className='cardPreferencesContent-Attendants' >
             
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Typography  className='textCard-Event' style={{ fontSize: '21px', fontWeight: 'bold'}}>
@@ -168,6 +168,7 @@ export function ViewAttendants() {
 
         </div>
     </div>
+    <div className='circle-home'></div>
     </div>
 
   );
