@@ -14,6 +14,7 @@ import { AppContext } from '../App';
 import { redirect } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+import zIndex from '@mui/material/styles/zIndex';
 
 const CreateForm = () => {
   const { eventGlobal, setEventGlobal } = useContext(AppContext);
@@ -95,14 +96,15 @@ const CreateForm = () => {
   }
 
   return (
-    <form onSubmit={handleCreateEvent}>
+    <form onSubmit={handleCreateEvent} sx={{zIndex:'2'}}>
     <Grid container alignItems="center" spacing={3} sx={{
       height: '80vh',
-      zIndex: 1,
+      zIndex: 2,
       width: 1000,
       backgroundColor: "white",
       borderRadius: 1,
-      boxShadow: 1
+      boxShadow: 1,
+      position:'relative'
     }}>
       <Grid item xs={5} textAlign="center">
         <FormTextField onFieldChange={setName} readOnly={isEdit} label="Nombre" value={name} selected={[selected, setSelected]} width={200} required />
