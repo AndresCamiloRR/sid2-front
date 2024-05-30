@@ -77,16 +77,16 @@ export function ViewEvent() {
       </CardContent>
     </Card>
 
-    <Card className='cardDescription-Event' sx= {{height: 'auto'}}>
-      <CardContent>
+    <Card className='cardDescription-Event' sx= {{height: 'auto', width:'60%', zIndex: '2'}}>
+      <CardContent style={{width:'100%'}}>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', zIndex: '2' }}>
+        <div style={{ display: 'inline', alignItems: 'center', gap: '8px', zIndex: '2'}}>
           <Typography  className='textCard-Event' style={{ fontSize: '21px', fontWeight: 'bold'}}>
             Descripción:
           </Typography>
-          <Typography className='textCard-Event' style={{ fontSize: '18px'}}>
+          <div className='textCard-Event' style={{ fontSize: '18px', height:'auto', 'text-wrap': 'wrap','word-wrap': 'break-word'}}>
             {obj.description}
-          </Typography>
+          </div>
         </div>
         
         {attendantsInfo.length > 0 && (

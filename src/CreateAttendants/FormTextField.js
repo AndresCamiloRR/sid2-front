@@ -3,7 +3,7 @@ import { withStyles } from '@mui/styles';
 import React, { useRef, useEffect } from 'react';
 
 
-const FormTextField = ({ onFieldChange, label, value, selected, width, readOnly}) => {
+const FormTextField = ({ onFieldChange, label, value, selected, width, readOnly, onBlur}) => {
 
   const inputRef = useRef(null);
 
@@ -20,6 +20,7 @@ const FormTextField = ({ onFieldChange, label, value, selected, width, readOnly}
 
   return (
     <TextField
+      onBlur = {onBlur}
       inputRef={inputRef}
       label={label}
       value={value}

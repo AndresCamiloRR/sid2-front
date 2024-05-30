@@ -49,8 +49,8 @@ const CreateForm = () => {
         navigate('/Attendants');
     };
 
-    const searchUsername = (username) => {
-        setUsername(username);
+    const searchUsername = () => {
+        //setUsername(username);
         EmployeeService.findEmployee(username)
             .then((worker) => {
                 console.log(worker)
@@ -88,25 +88,25 @@ const CreateForm = () => {
             boxShadow: 1
         }}>
             <Grid item xs={5} textAlign="center">
-                <FormTextField readOnly={isEdit} onFieldChange={searchUsername} label={"Cédula"} value={username} selected={[selected, setSelected]} width={200} required />
+                <FormTextField onBlur={searchUsername} readOnly={isEdit} onFieldChange={setUsername} label={"Cédula"} value={username} selected={[selected, setSelected]} width={200} required />
             </Grid>
             <Grid item xs={5} textAlign="center">
-                <FormTextField onFieldChange={setName} label={"Nombre"} value={name} selected={[selected, setSelected]} width={200} required />
+                <FormTextField onBlur={null} onFieldChange={setName} label={"Nombre"} value={name} selected={[selected, setSelected]} width={200} required />
             </Grid>
             <Grid item xs={5} textAlign="center">
-                <FormTextField onFieldChange={setCityName} label={"Ciudad"} value={cityName} selected={[selected, setSelected]} width={200} required />
+                <FormTextField onBlur={null} onFieldChange={setCityName} label={"Ciudad"} value={cityName} selected={[selected, setSelected]} width={200} required />
             </Grid>
             <Grid item xs={5} display="flex" justifyContent="center">
                 <FreeSolo values={allRelations} label={"Relación *"} onChange={[relation, setRelation]} selected={[selected, setSelected]} width={200} required />
             </Grid>
             <Grid item xs={5} textAlign="center">
-                <FormTextField onFieldChange={setCityState} label={"Departamento"} value={cityState} selected={[selected, setSelected]} width={200} required />
+                <FormTextField onBlur={null} onFieldChange={setCityState} label={"Departamento"} value={cityState} selected={[selected, setSelected]} width={200} required />
             </Grid>
             <Grid item xs={5} textAlign="center">
-                <FormTextField onFieldChange={setEmail} label={"Correo"} value={email} selected={[selected, setSelected]} width={200} required />
+                <FormTextField onBlur={null} onFieldChange={setEmail} label={"Correo"} value={email} selected={[selected, setSelected]} width={200} required />
             </Grid>
             <Grid item xs={5} textAlign="center">
-                <FormTextField onFieldChange={setCityCountry} label={"País"} value={cityCountry} selected={[selected, setSelected]} width={200} required />
+                <FormTextField onBlur={null} onFieldChange={setCityCountry} label={"País"} value={cityCountry} selected={[selected, setSelected]} width={200} required />
             </Grid>
             <Grid item xs={5} textAlign="center">
                 <Button style={{'backgroundColor':'#46ad95', 'color':'white'}}  type='submit'>Guardar Asistente</Button>
