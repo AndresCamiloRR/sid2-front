@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SideBar from '../Components/SideBar';
 import TopBar from '../Components/TopBar';
 import { useLocation } from "react-router-dom";
@@ -6,11 +6,31 @@ import { List, ListItem, ListItemText, Card, CardContent, Typography } from '@mu
 import ProgramTable from './ProgramsTable';
 import LocationTable from './LocationTable';
 import FacultiesTable from './FacultiesTable';
+import AttendantsTable from './AttendantsTable';
+import AttendantsService from '../Services/AttendantsService';
 import './ViewEvent.css';
 
 export function ViewEvent() {
   const location = useLocation();
   let obj = location.state.obj;
+  const [attendantsInfo, setAttendantsInfo] = useState([]);
+
+  const handleViewAttendants = async() =>{
+    try {
+      const response = await AttendantsService.getAttendantsByID(obj.attendants);
+      setAttendantsInfo(response);
+    } catch (error) {
+      console.error("Error al obtener asistentes:", error);
+    }
+  }
+
+  
+  useEffect(() => {
+    handleViewAttendants();
+  }, []);
+
+
+  console.log(attendantsInfo)
 
   const eventDate = new Date(obj.date).toLocaleDateString('es-ES', {
     day: '2-digit',
@@ -24,7 +44,7 @@ export function ViewEvent() {
     <div className='container'>
       <TopBar name={"Ver Evento"} />
       <SideBar />
-      <div className='content'>
+      <div className='content' >
         <div className='InfoContainer-Event'>
         <div style={{width: '60%', paddingLeft:'2px'}}>
           <h2 className='tittle-Attendants'>Información del evento</h2>
@@ -57,7 +77,7 @@ export function ViewEvent() {
       </CardContent>
     </Card>
 
-    <Card className='cardDescription-Event'>
+    <Card className='cardDescription-Event' sx= {{height: 'auto'}}>
       <CardContent>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', zIndex: '2' }}>
@@ -68,12 +88,21 @@ export function ViewEvent() {
             {obj.description}
           </Typography>
         </div>
+        
+        {attendantsInfo.length > 0 && (
+        <div>
+          <AttendantsTable attendants={attendantsInfo} />
 
+        </div>
+        )
+        
+        }
       </CardContent>
     </Card>
 
     
-    <Card className='cardCategories-Event' style={{zIndex: '2' }}>
+
+    <Card className='cardCategories-Event' style={{zIndex: '2', width: 'auto', overflow: 'auto' }}>
 
     <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
 

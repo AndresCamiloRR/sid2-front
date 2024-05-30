@@ -37,9 +37,7 @@ const EventCard = ({ event }) => {
           <Grid item>
             <Typography noWrap>{eventDate}</Typography>
           </Grid>
-          <Grid item>
-            <ActionButton icon={<RemoveRedEyeIcon />} color="#46ad95" />
-          </Grid>
+
         </Grid>
       </StyledPaper>
     </Box>

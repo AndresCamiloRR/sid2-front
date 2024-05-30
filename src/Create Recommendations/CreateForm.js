@@ -4,6 +4,7 @@ import FreeSolo from "./FreeSolo";
 import EventService from "../Services/EventService";
 import MultipleAutocomplete from './MultipleAutocomplete';
 import AttendantsService from '../Services/AttendantsService';
+import { useNavigate } from 'react-router-dom';
 
 const CreateForm = () => {
 
@@ -12,6 +13,8 @@ const CreateForm = () => {
     const [allEvents, setAllEvents] = useState([]);
     const [selected, setSelected] = useState("");
     const [attendants, setAttendants] = useState([]);
+    const navigate = useNavigate()
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         EventService.getEventsFilteredNoCategories('', '')
@@ -38,19 +41,28 @@ const CreateForm = () => {
     };
 
     const handleCreateRecommendation = async () => {
-        try {
-            EventService.addAttendants(event, attendants.map(attendant => attendant.username));
 
-            const eventSelected = await EventService.getByTitle(event);
-
-            attendants.forEach(attendant => AttendantsService.addEvents(attendant.username, eventSelected.categories));
-
-        } catch (error) {
-            console.error("Error al registrar la recomendación:", error);
+        if (attendants.length === 0 || event.length === 0){
+            setErrorMessage('Todas las casillas deben de tener contenido')
+        }else{
+            try {
+                EventService.addAttendants(event, attendants.map(attendant => attendant.username));
+    
+                const eventSelected = await EventService.getByTitle(event);
+    
+                attendants.forEach(attendant => AttendantsService.addEvents(attendant.username, eventSelected.categories));
+    
+            } catch (error) {
+                console.error("Error al registrar la recomendación:", error);
+            }
+    
+            navigate('/Recommendations')
         }
+
     }
 
     return (
+        
         <Grid spacing={3} container alignItems="center" sx={{
             height: '30vh',
             zIndex: 1,
@@ -78,9 +90,11 @@ const CreateForm = () => {
                 />
             </Grid>
             <Grid item xs={5} textAlign={"center"}>
-                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}} onClick={handleCreateRecommendation}>Registrar Recomendación</Button>
+                <Button style={{'backgroundColor':'#46ad95', 'color':'white'}} onClick={handleCreateRecommendation}>Añadir participación</Button>
             </Grid>
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
         </Grid>
+        
     );
 }
 

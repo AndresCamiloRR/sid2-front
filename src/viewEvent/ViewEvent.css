@@ -3,7 +3,8 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
+  overflow: auto;
+  background-color: #badfd7; 
 }
 
 .topbar {
@@ -38,7 +39,7 @@
 
 .InfoContainer-Event {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   gap: 40px;
   flex-direction: column;
@@ -62,7 +63,7 @@
   grid-template-columns: auto auto;
   gap: 10px;
   font-size: 20px;
-  height: 100%;
+  height: auto;
 
 }
 
@@ -71,10 +72,6 @@
 
 }
 
-
-.cardDescription-Event{
-  width: 60%;
-}
 
 .circle-home{
   position: fixed;
@@ -86,6 +83,13 @@
   background-color: #DA5A66;
   border-radius: 50%;
   z-index: 0;
+}
+
+
+.cardDescription-Event{
+  height: auto;
+  width: 60%;
+  display: flex;
 }
 
 

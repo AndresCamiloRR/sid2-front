@@ -14,7 +14,7 @@ export default class CreateAttendant extends React.Component {
         <html className='home-html-body'>
           <body className='home-html-body'>
             <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
-              <TopBar name={"Home"}/>
+              <TopBar name={"Crear asistente"}/>
               <SideBar/>
               <CreateForm></CreateForm>
               <div className='circle-home'> </div>

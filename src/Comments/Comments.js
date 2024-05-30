@@ -15,7 +15,7 @@ export default class Comments extends React.Component {
         <html className='home-html-body'>
           <body className='home-html-body'>
             <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
-              <TopBar name={"Home"}/>
+              <TopBar name={"Comentarios"}/>
               <SideBar/>
               <Stack>
                 <CommentTable></CommentTable>

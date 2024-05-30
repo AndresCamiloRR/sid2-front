@@ -3,6 +3,7 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Table, TableCell, TableContainer, TableHead, TableRow, Paper, Grid } from '@mui/material';
 import FreeSolo from './FreeSolo';
+import { BorderColor } from '@mui/icons-material';
 
 const EventTableHeader = ({values, handleUser, handleSelected}) => {
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -26,7 +27,7 @@ const EventTableHeader = ({values, handleUser, handleSelected}) => {
               <StyledTableCell>
                 <Grid container wrap="nowrap" alignItems="center">
                   <Grid item>
-                    <FreeSolo label={"Atendiente"} values={values} onChange={handleUser} selected={handleSelected} width={400}/>
+                    <FreeSolo label={"Asistente"} values={values} onChange={handleUser} selected={handleSelected} width={400} />
                   </Grid>
                 </Grid>
               </StyledTableCell>

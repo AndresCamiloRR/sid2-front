@@ -15,7 +15,7 @@ export default class Recommendations extends React.Component {
         <html className='home-html-body'>
           <body className='home-html-body'>
             <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'></link>
-              <TopBar name={"Home"}/>
+              <TopBar name={"Recomendaciones"}/>
               <SideBar/>
               <Stack>
               <EventTable/>
