@@ -13,6 +13,7 @@ import MultipleSelect from './MultipleSelect';
 import { AppContext } from '../App';
 import { redirect } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 const CreateForm = () => {
   const { eventGlobal, setEventGlobal } = useContext(AppContext);
@@ -47,6 +48,8 @@ const CreateForm = () => {
   const [allFaculties, setAllFaculties] = useState([]);
   const [allPrograms, setAllPrograms] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate()
 
   useEffect(() => {
     EventService.getCategories()
@@ -74,18 +77,21 @@ const CreateForm = () => {
       });
   }, []);
 
-  const handleCreateEvent = () => {
+  const handleCreateEvent = (e) => {
 
     
     if (categories.length === 0) {
-      alert('Por favor, selecciona al menos una categoría.');
-      return;
+      e.preventDefault();
+      setErrorMessage('Por favor, selecciona al menos una categoría.');
+
+    }else if (categories.length > 0){
+      console.log('todo culpa de andres')
+      localStorage.setItem('reload', true);
+      EventService.createEvent(name, categories, date, description, locationName, locationAddress, cityName, cityState, cityCountry, faculties, programs)
+      setEventGlobal(null)
+      navigate("/")
     }
 
-    localStorage.setItem('reload', true);
-    EventService.createEvent(name, categories, date, description, locationName, locationAddress, cityName, cityState, cityCountry, faculties, programs)
-    setEventGlobal(null)
-    redirect("/Home")
   }
 
   return (
@@ -103,7 +109,10 @@ const CreateForm = () => {
       </Grid>
       <Grid item xs={5} textAlign="center">
         <MultipleFreeSolo values={allCategories} onMultipleChange={[categories, setCategories]} width={400} label="Categorías" selected={[selected, setSelected]}  />
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       </Grid>
+      
+    
       <Grid item xs={5}>
         <div style={{ textAlign: "center" }}>
           <div style={{ display: "inline-block" }}> {/* Nuevo contenedor */}
